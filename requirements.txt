@@ -1,0 +1,6 @@
+Flask
+requests
+pycord
+os
+asyncio
+logging
