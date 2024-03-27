@@ -89,7 +89,13 @@ async def ban(ctx, member : discord.Member, *, reason = None):
         await ctx.channel.send("You cannot ban yourself")
         return
     
-
+@bot.slash_command(name="dm", description="Sends a DM to a user")
+#@commands.has_permissions(Administrator = True)
+async def direct(ctx, user: discord.User, *, message=None):
+    message = message or "This Message is sent via DM"
+    await user.send(f"{message} ~ Signed <@{ctx.author.id}>")
+    await ctx.respond("Completed!", ephemeral=True)
+    await ctx.send(f"<:important_mod:1222374185087664208> <@{user.id}> An important message form the mods have been sent to your DMs")
 
 # @bot.slash_command(guild_ids=[1216934285668388966])
 #@discord.option("Requestor", description="Enter the requestor's username.")
