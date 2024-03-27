@@ -82,12 +82,25 @@ async def slowmode(ctx, seconds: int):
 
 @bot.slash_command(description="Bans a member", guild_ids=[1216934285668388966])
 @commands.has_permissions(ban_members = True)
-async def ban(ctx, member : discord.Member, *, reason = None):
-    await member.ban(reason = reason)
-    await ctx.respond(f"Done, <@{ctx.author.id}> Banned <@{member.id}>")
+async def ban(ctx, member: discord.Member, *, reason=None):
+    if ctx.author.guild_permissions.ban_members:
+        if reason is None:
+            reason = "No reason provided"
+        
+        try:
+            # Send DM to the member
+            await user.send(member, f"You have been banned from ACRP because of: {reason}")
+            # Ban the member
+            await member.ban(reason=reason)
+            await ctx.respond(f"{member.name} has been banned for: {reason}")
+        except discord.Forbidden:
+            await ctx.respond("Failed to ban the user, insufficient permissions or bot role is lower than user's role")
+    else:
+        await ctx.respond("You do not have permission to use this command")
     if member is None or member == ctx.message.author:
         await ctx.channel.send("You cannot ban yourself")
         return
+
     
 @bot.slash_command(name="dm", description="Sends a DM to a user")
 #@commands.has_permissions(Administrator = True)
