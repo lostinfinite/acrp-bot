@@ -95,7 +95,7 @@ async def direct(ctx, user: discord.User, *, message=None):
     message = message or "This Message is sent via DM"
     await user.send(f"{message} ~ Signed <@{ctx.author.id}>")
     await ctx.respond("Completed!", ephemeral=True)
-    await ctx.send(f"<:important_mod:1222374185087664208> <@{user.id}> An important message form the mods have been sent to your DMs")
+    await ctx.send(f"<:important_mod:1222378567598342235> <@{user.id}> An important message form the mods have been sent to your DMs")
 
 # @bot.slash_command(guild_ids=[1216934285668388966])
 #@discord.option("Requestor", description="Enter the requestor's username.")
